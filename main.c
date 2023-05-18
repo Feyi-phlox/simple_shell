@@ -1,5 +1,4 @@
 #include "main.h"
-#include <unistd.h>
 
 /**
  * main - program entry point
@@ -14,15 +13,14 @@ int main(int argc, char *argv[], char **env){
 	size_t buffer_size = 0;
 	pid_t pid;
 	ssize_t nbytes;
-	int status;
-	bool pipe_use = false;
+	int status, pipe_use = 0;
 
 	
 	while (1 && !pipe_use){
 		
 		/* Display this in the terminal when the program starts */
 		if (isatty(STDIN_FILENO) == 0)
-			pipe_use = true;
+			pipe_use = 1;
 		
 		/* Display this in the terminal when program starts */
 		write(STDOUT_FILENO, ui, 8);
@@ -31,18 +29,18 @@ int main(int argc, char *argv[], char **env){
 		nbytes = getline(&buffer, &buffer_size, stdin);
 		if (nbytes == -1){
 			/* Print an error to the terminal and free memory */
-			error_handler("Error from (getline) function");
+			printf("Error from (getline) function\n");
 			free(buffer);
 			exit(EXIT_FAILURE);
 	}
 		/* remove new line character from getline */
-		printf("nbytes value is %d", nbytes); /* to know the nybytes */
+		printf("nbytes value is %ld\n", nbytes); /* to know the nybytes */
 		if (buffer[nbytes - 1] == '\n')
 			buffer[nbytes - 1] == '\0';
 		/* Create a child process here to execute any parsed command */
 		pid = fork();
 		if(pid == -1){
-			error_handler("Error from (fork) function");
+			printf("Error from (fork) function\n");
 			exit(EXIT_FAILURE);
 		}
 		if (pid == 0)
@@ -51,7 +49,7 @@ int main(int argc, char *argv[], char **env){
 			printf("Hello from child\n");
 		}
 	}
-		wait();
+		wait(&status);
 		free(buffer);
 
 

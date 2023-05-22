@@ -29,18 +29,18 @@ int main(int argc, char *argv[], char **env){
 		nbytes = getline(&buffer, &buffer_size, stdin);
 		if (nbytes == -1){
 			/* Print an error to the terminal and free memory */
-			printf("Error from (getline) function\n");
+			perror("Error from (getline) function");
 			free(buffer);
 			exit(EXIT_FAILURE);
 	}
 		/* remove new line character from getline */
 		printf("nbytes value is %ld\n", nbytes); /* to know the nybytes */
 		if (buffer[nbytes - 1] == '\n')
-			buffer[nbytes - 1] == '\0';
+			buffer[nbytes - 1] = '\0';
 		/* Create a child process here to execute any parsed command */
 		pid = fork();
 		if(pid == -1){
-			printf("Error from (fork) function\n");
+			perror("Error from (fork) function\n");
 			exit(EXIT_FAILURE);
 		}
 		if (pid == 0)

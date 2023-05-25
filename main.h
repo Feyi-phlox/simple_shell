@@ -17,7 +17,6 @@ int _strlen(char *s);
 char *_strstr(char *haystack, char *needle);
 char *_strdup(char *str);
 void _myexecv(char *path_return, char **args);
-ssize_t _first(char *user_command, size_t command_length);
 char *pa(char *user_command, char *args[], int argc, char *directories[], int numdirs);
 void _remove(char *user_command);
 

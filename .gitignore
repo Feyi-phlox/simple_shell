@@ -1,0 +1,3 @@
+# Prevent executable files
+*.exe
+*.out

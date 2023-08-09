@@ -1,2 +1,2 @@
 # simple_shell
-This the simple shell repo
+This is the simple shell repo
